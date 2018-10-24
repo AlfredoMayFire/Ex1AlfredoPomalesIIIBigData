@@ -14,7 +14,7 @@ public class KeywordToTweetsMapper extends Mapper<LongWritable, Text, Text, Text
         try {
             Status status = TwitterObjectFactory.createStatus(rawTweet);
             String tweet = status.getText().toUpperCase();
-
+ 
             if (tweet.contains("FLU"))
                 context.write(new Text("FLU"), new Text(String.valueOf(status.getId())));
 
