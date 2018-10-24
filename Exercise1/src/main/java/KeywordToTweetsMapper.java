@@ -7,30 +7,32 @@ import twitter4j.TwitterObjectFactory;
 
 import java.io.IOException;
 
-public class Exercise1Mapper extends Mapper<LongWritable, Text, Text, Text> {
+public class KeywordToTweetsMapper extends Mapper<LongWritable, Text, Text, Text> {
+  @Override
     public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
         String rawTweet = value.toString();
         try {
             Status status = TwitterObjectFactory.createStatus(rawTweet);
             String tweet = status.getText().toUpperCase();
-            if (tweet.contains("FLU")){
+
+            if (tweet.contains("FLU"))
                 context.write(new Text("FLU"), new Text(String.valueOf(status.getId())));
-            }
-            if (tweet.contains("ZIKA")){
+
+            if (tweet.contains("ZIKA"))
                 context.write(new Text("ZIKA"), new Text(String.valueOf(status.getId())));
-            }
-            if (tweet.contains("DIARRHEA")){
+
+            if (tweet.contains("DIARRHEA"))
                 context.write(new Text("DIARRHEA"), new Text(String.valueOf(status.getId())));
-            }
-            if (tweet.contains("EBOLA")){
+
+            if (tweet.contains("EBOLA"))
                 context.write(new Text("EBOLA"), new Text(String.valueOf(status.getId())));
-            }
-            if (tweet.contains("SWAMP")){
+
+            if (tweet.contains("SWAMP"))
                 context.write(new Text("SWAMP"), new Text(String.valueOf(status.getId())));
-            }
-            if (tweet.contains("CHANGE")){
+
+            if (tweet.contains("CHANGE"))
                 context.write(new Text("CHANGE"), new Text(String.valueOf(status.getId())));
-            }
+
         }
         catch(TwitterException e){
         }
